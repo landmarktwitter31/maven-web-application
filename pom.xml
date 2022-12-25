@@ -29,12 +29,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	
+	<repositories>
 	    <repository>
 	      <id>nexus-proxy</id>
 	      <name>Cold Energy Nexus Proxy Server</name>
 	      
 	    </repository>
-	
+	</repositories>
 	<dependencies>
 		
 		<dependency>
