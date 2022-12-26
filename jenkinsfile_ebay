@@ -1,0 +1,39 @@
+node {
+    def mavenHome = tool name: 'Maven-3.8.6'
+    stage ('1 CloneCode'){
+        git "https://github.com/landmarktwitter31/maven-web-application"
+       // sh "git clone https://github.com/landmarktwitter31/maven-web-application" 
+        
+    }
+    
+    stage ('2 Test&Build'){
+        sh "${mavenHome}/bin/mvn clean package"
+       
+    }
+    stage ('3 CodeQualitye'){
+       sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    stage ('4 Upload Artefacts'){
+        sh "${mavenHome}/bin/mvn deploy"
+    }
+    stage ('5 Deploy to UAT'){
+        sh "echo 'Deploy to UAT' "
+        deploy adapters: [tomcat9(credentialsId: 'tomcat9_credentials', path: '', url: 'http://34.205.78.238:8080/')], contextPath: null, war: 'target/*war'
+        
+    }
+    stage ('6 ApprovalGate'){
+       sh " echo ' Ready for Review' "
+        timeout (time:3, unit:"MINUTES") {
+            input message: 'Application ready for deployment, please review and approve'
+            }
+    }
+    stage ('7 Deploy2 Prod'){
+         deploy adapters: [tomcat9(credentialsId: 'tomcat9_credentials', path: '', url: 'http://34.205.78.238:8080/')], contextPath: null, war: 'target/*war'
+    }
+    stage ('8 Email Notification'){
+        emailext body: '''Hi,
+
+The build was successful!''', subject: 'Ebay-webapp build status', to: 'fawazbruce@gmail.com'
+    }
+    
+    }
