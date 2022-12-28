@@ -95,13 +95,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Ebay Releases</name>
-	      <url>http://3.223.136.223:8081/coldenergy/repository/ebay-releases/</url>
+	      <url>http://172.31.2.28:8081/coldenergy/repository/ebay-releases/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Landmark Technologies Snapshot Nexus Repository </name>
-	      <url>http://3.223.136.223:8081/coldenergy/repository/ebay-snapshots/</url>
+	      <url>http://172.31.2.28:8081/coldenergy/repository/ebay-snapshots/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
